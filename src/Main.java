@@ -17,9 +17,11 @@ public class Main {
 
     File[] files = srcDir.listFiles();
 
-    int middle = files.length / 2;
-    int fours = files.length - files.length / 4;
-    int quarter = files.length / 4;
+
+
+    int quarter = (files.length - files.length % 4) / 4;
+    int third = quarter * 3;
+    int middle = quarter * 2;
 
    File[] files1 = new File[quarter];
    System.arraycopy(files, 0, files1, 0, files1.length);
@@ -36,8 +38,8 @@ public class Main {
    ImageResizer resizer3 = new ImageResizer(files3, newWidth, dstFolder, start);
    new Thread(resizer3).start();
 
-   File[] files4 = new File[quarter];
-   System.arraycopy(files, fours, files4, 0, files4.length);
+   File[] files4 = new File[quarter + files.length % 4];
+   System.arraycopy(files, third, files4, 0, files4.length);
    ImageResizer resizer4 = new ImageResizer(files4, newWidth, dstFolder, start);
    new Thread(resizer4).start();
 
